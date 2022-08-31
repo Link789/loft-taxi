@@ -1,26 +1,33 @@
 import React, {Component} from 'react';
+import '../styles/Header.css';
 import LogoImg from "../img/logo.svg";
 import MapPage from "./pages/Map";
 import ProfilePage from "./pages/Profile";
 import LoginPage from "./pages/Login";
 
+
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {page: 'map'}
+        this.state = {page: this.props.page}
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(event) {
-        //console.log(event.target.attributes[1].value);
         this.setState({page: event.target.attributes[1].value})
     }
 
-    getPage = (page) => {
+    getPageLayout = (page, withoutHeader) => {
+        if (withoutHeader)
+            return (
+                <div>
+                    {page}
+                </div>
+            )
         return (
             <div>
                 {this.header()}
-                <div style={{backgroundColor: "white"}}>
+                <div className='backgroundColorPage'>
                     {page}
                 </div>
             </div>
@@ -31,38 +38,41 @@ class Header extends Component {
         return (
             <div id='header'>
                 <img src={LogoImg} alt="Логотип"/>
-
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    float: "right",
-                    color: "white",
-                    justifyContent: "center",
-                    marginTop: '20px'
-                }}>
-                    <div className={this.state.page === 'map' ? 'itemMenu active' : 'itemMenu'} name='map'
-                         onClick={this.handleClick}>Карта
+                <div className='navMenu'>
+                    <div
+                        className={this.state.page === 'map' ? 'itemMenu active' : 'itemMenu'}
+                        name='map'
+                        onClick={this.handleClick}>
+                        Карта
                     </div>
-                    <div className={this.state.page === 'profile' ? 'itemMenu active' : 'itemMenu'} name='profile'
-                         onClick={this.handleClick}>Профиль
+                    <div
+                        className={this.state.page === 'profile' ? 'itemMenu active' : 'itemMenu'}
+                        name='profile'
+                        onClick={this.handleClick}>
+                        Профиль
                     </div>
-                    <div className='itemMenu' name='exit' onClick={this.handleClick}>Выйти</div>
+                    <div className='itemMenu'
+                         name='exit'
+                         onClick={this.handleClick}>
+                        Выйти
+                    </div>
                 </div>
             </div>
         )
     }
 
     render() {
-        switch (this.state.page) {
-            case 'profile':
-                return this.getPage(<ProfilePage/>)
-            case 'map':
-                return this.getPage(<MapPage/>)
-            case 'exit':
-                return <LoginPage/>
-            default:
-                return this.getPage(<div>null</div>)
-        }
+        if (this.state.page)
+            switch (this.state.page) {
+                case 'profile':
+                    return this.getPageLayout(<ProfilePage/>)
+                case 'map':
+                    return this.getPageLayout(<MapPage/>)
+                case 'exit':
+                    return this.getPageLayout(<LoginPage/>, true)
+                default:
+                    return this.getPageLayout(<div>null</div>)
+            }
     }
 }
 

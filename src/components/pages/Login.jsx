@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../../styles/Login.css';
 import MapImg from "../../img/map_loginPage.svg";
 import LogoImg from "../../img/logo_loginPage.png";
 import Header from "../Header";
@@ -8,12 +9,9 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: '',
-            password: '',
             isLogin: false,
             isRegistration: false
         }
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
@@ -21,11 +19,6 @@ class LoginPage extends Component {
     handleSubmit(event) {
         event.preventDefault()
         this.setState({isLogin: true})
-        console.log(this.state.userName, this.state.password, this.state.isLogin);
-    }
-
-    handleChange(event) {
-        this.setState({[event.target.name]: event.target.value})
     }
 
     handleClick(event) {
@@ -34,7 +27,9 @@ class LoginPage extends Component {
 
     render() {
         if (this.state.isLogin)
-            return <Header/>
+            return (
+                <Header page="map"/>
+            )
         else if (this.state.isRegistration)
             return <RegistrationPage/>
         else
@@ -43,24 +38,29 @@ class LoginPage extends Component {
                     <div id='leftContainer'>
                         <img src={LogoImg} alt="Логотип"/>
                     </div>
-                    <div id='rightContainer' style={{
-                        backgroundImage: `url(${MapImg})`
-                    }}>
-                        <form id='loginForm' onSubmit={this.handleSubmit}>
+                    <div id='rightContainer'
+                         style={{backgroundImage: `url(${MapImg})`}}>
+                        <form id='loginForm'
+                              onSubmit={this.handleSubmit}>
                             <div className='formHeader'>Войти</div>
 
                             <div className="container">
                                 <label htmlFor="userName"><b>Имя пользователя *</b></label>
-                                <input type="text" placeholder="Имя пользователя *" name="userName"
-                                       onChange={this.handleChange} required/>
+                                <input type="text"
+                                       placeholder="Имя пользователя *"
+                                       name="userName"
+                                       required/>
                                 <label htmlFor="password"><b>Пароль *</b></label>
-                                <input type="password" placeholder="Пароль *" name="password"
-                                       onChange={this.handleChange}
+                                <input type="password"
+                                       placeholder="Пароль *"
+                                       name="password"
                                        required/>
                                 <button id='login' type="submit">Войти</button>
                             </div>
                             <div className="psw" onClick={this.handleClick}>
-                                <span>Новый пользователь?  <a href="#">Зарегистрируйтесь</a></span>
+                                <span>
+                                    Новый пользователь?  <a href="#">Зарегистрируйтесь</a>
+                                </span>
                             </div>
                         </form>
                     </div>

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import '../../styles/Login.css';
+import '../../styles/Registration.css';
 import MapImg from "../../img/map_loginPage.svg";
 import LogoImg from "../../img/logo_loginPage.png";
 import Header from "../Header";
@@ -8,14 +10,9 @@ class RegistrationPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            firstName: '',
-            lastName: '',
-            password: '',
             isLogin: false,
             isRegistration: false
         }
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
@@ -23,19 +20,17 @@ class RegistrationPage extends Component {
     handleSubmit(event) {
         event.preventDefault()
         this.setState({isRegistration: true})
-        console.log(this.state.lastName, this.state.password, this.state.isRegistration);
     }
 
-    handleChange(event) {
-        this.setState({[event.target.name]: event.target.value})
-    }
     handleClick(event) {
         this.setState({isLogin: true})
     }
 
     render() {
         if (this.state.isRegistration)
-            return <Header/>
+            return (
+                <Header page="map"/>
+            )
         else if (this.state.isLogin)
             return <LoginPage/>
         else
@@ -52,28 +47,37 @@ class RegistrationPage extends Component {
 
                             <div className="container">
                                 <label htmlFor="email"><b>Адрес электронной почты *</b></label>
-                                <input type="text" placeholder="Адрес электронной почты *" name="email"
-                                       onChange={this.handleChange} required/>
-                                <div style={{display: "flex", flexDirection: "row"}}>
+                                <input type="text"
+                                       placeholder="Адрес электронной почты *"
+                                       name="email"
+                                       onChange={this.handleChange}
+                                       required/>
+                                <div className='personalData'>
                                     <div>
                                         <label htmlFor="firstName"><b>Имя *</b></label>
-                                        <input type="text" placeholder="Имя *" name="firstName"
-                                               onChange={this.handleChange} required/>
+                                        <input type="text"
+                                               placeholder="Имя *"
+                                               name="firstName"
+                                               required/>
                                     </div>
-                                    <div style={{marginLeft:'5px'}}>
+                                    <div className='lastName' >
                                         <label htmlFor="lastName"><b>Фамилия *</b></label>
-                                        <input type="text" placeholder="Фамилия *" name="lastName"
-                                               onChange={this.handleChange} required/>
+                                        <input type="text"
+                                               placeholder="Фамилия *"
+                                               name="lastName"
+                                               required/>
                                     </div>
                                 </div>
                                 <label htmlFor="password"><b>Пароль *</b></label>
-                                <input type="password" placeholder="Пароль *" name="password"
-                                       onChange={this.handleChange}
+                                <input type="password"
+                                       placeholder="Пароль *"
+                                       name="password"
                                        required/>
                                 <button id='login' type="submit">Зарегистрироваться</button>
                             </div>
                             <div className="psw" onClick={this.handleClick}>
-                             <span>Уже зарегистрирован?  <a href="#">Войти</a>
+                             <span>
+                                 Уже зарегистрирован?  <a href="#">Войти</a>
                             </span>
                             </div>
                         </form>
