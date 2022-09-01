@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import '../styles/Header.css';
-import LogoImg from "../img/logo.svg";
+
 import MapPage from "./pages/Map";
 import ProfilePage from "./pages/Profile";
 import LoginPage from "./pages/Login";
+
+import LogoImg from "../img/logo.svg";
+import '../styles/Header.css';
 
 
 class Header extends Component {
@@ -62,17 +64,19 @@ class Header extends Component {
     }
 
     render() {
-        if (this.state.page)
-            switch (this.state.page) {
-                case 'profile':
-                    return this.getPageLayout(<ProfilePage/>)
-                case 'map':
-                    return this.getPageLayout(<MapPage/>)
-                case 'exit':
-                    return this.getPageLayout(<LoginPage/>, true)
-                default:
-                    return this.getPageLayout(<div>null</div>)
-            }
+        if (!this.state.page) {
+            return null;
+        }
+        switch (this.state.page) {
+            case 'profile':
+                return this.getPageLayout(<ProfilePage/>)
+            case 'map':
+                return this.getPageLayout(<MapPage/>)
+            case 'exit':
+                return this.getPageLayout(<LoginPage/>, true)
+            default:
+                return this.getPageLayout(<div>null</div>)
+        }
     }
 }
 
