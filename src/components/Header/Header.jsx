@@ -1,13 +1,13 @@
-import React, {Component, useContext} from 'react';
+import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
-import MapPage from "./pages/Map";
-import ProfilePage from "./pages/Profile";
-import LoginPage from "./pages/Login";
-import {Context} from "../Context";
+import MapPage from "../pages/Map/Map";
+import ProfilePage from "../pages/Profile/Profile";
+import LoginPage from "../pages/Login/Login";
+import {Context} from "../../Context";
 
-import LogoImg from "../img/logo.svg";
-import '../styles/Header.css';
+import LogoImg from "../../img/logo.svg";
+import './Header.css';
 
 class Header extends Component {
     constructor(props) {
@@ -68,14 +68,13 @@ class Header extends Component {
                     </Context.Consumer>
                 </div>
             </div>
-
         )
     }
 
     render() {
-        if (!this.state.page) {
+        if (!this.state.page)
             return null;
-        }
+
         switch (this.state.page) {
             case 'profile':
                 return this.getPageLayout(<ProfilePage/>)

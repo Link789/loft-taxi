@@ -1,0 +1,33 @@
+.backgroundColorPage {
+    background-color: white;
+}
+
+.active {
+    color: #FDBF5A !important;
+}
+
+.navMenu {
+    display: flex;
+    flex-direction: row;
+    float: right;
+    color: white;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#header {
+    width: 95%;
+    height: 65px;
+    padding: 4px 24px;
+}
+
+#header .itemMenu {
+    margin-left: 20px;
+    color: white;
+}
+
+#header .itemMenu:hover {
+    cursor: pointer;
+    background-color: #FDBF5A;
+    color: black !important;
+}

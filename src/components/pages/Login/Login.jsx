@@ -1,14 +1,14 @@
 import React, {useContext} from 'react';
 
-import {Context} from "../../Context";
-import Header from "../Header";
-import RegistrationPage from "./Registration";
+import {Context} from "../../../Context.js";
+import Header from "../../Header/Header.jsx";
+import RegistrationPage from "../Registration/Registration.jsx";
 
-import MapImg from "../../img/map_loginPage.svg";
-import LogoImg from "../../img/logo_loginPage.png";
-import '../../styles/Login.css';
+import MapImg from "../../../img/map_loginPage.svg";
+import LogoImg from "../../../img/logo_loginPage.png";
+import './Login.css';
 
-export default function LoginPage() {
+export default function LoginPage(props) {
     const [isRegistration, setIsRegistration] = React.useState(false)
     const [login, setLogin] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -34,7 +34,7 @@ export default function LoginPage() {
 
     switch (true) {
         case isRegistration: return <RegistrationPage/>
-        case isLoggedIn: return <Header page="map" func={logOut}/>
+        case isLoggedIn: return <Header page="map"/>
         default:
             return (
                 <div id='mainContainer'>

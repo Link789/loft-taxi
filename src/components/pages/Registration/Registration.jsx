@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
 
-import Header from "../Header";
-import LoginPage from "./Login";
+import LoginPage from "../Login/Login.jsx"
 
-import MapImg from "../../img/map_loginPage.svg";
-import LogoImg from "../../img/logo_loginPage.png";
-import '../../styles/Login.css';
-import '../../styles/Registration.css';
+import MapImg from "../../../img/map_loginPage.svg"
+import LogoImg from "../../../img/logo_loginPage.png"
+import '../Login/Login.css'
+import './Registration.css'
 
 class RegistrationPage extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             isLogin: false,
             isRegistration: false
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
     handleSubmit(event) {
@@ -31,7 +30,7 @@ class RegistrationPage extends Component {
     render() {
         switch (true) {
             case this.state.isRegistration:
-                return <LoginPage/>//<Header page="map"/>
+                return <LoginPage/> //<Header page="map"/>
             case this.state.isLogin:
                 return <LoginPage/>
             default:
@@ -95,4 +94,4 @@ class RegistrationPage extends Component {
     }
 }
 
-export default RegistrationPage;
+export default RegistrationPage
