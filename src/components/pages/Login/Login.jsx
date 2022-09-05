@@ -12,7 +12,7 @@ export default function LoginPage(props) {
     const [isRegistration, setIsRegistration] = React.useState(false)
     const [login, setLogin] = React.useState('')
     const [password, setPassword] = React.useState('')
-    const {logIn,logOut, isLoggedIn} = useContext(Context)
+    const {logIn, isLoggedIn} = useContext(Context)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -22,10 +22,10 @@ export default function LoginPage(props) {
     const handleChange = (event) => {
         const name = event.target.name
         const value = event.target.value
-        switch (name) {
-            case 'userName': return setLogin(value)
-            case 'password': return setPassword(value)
-        }
+        if (name==="userName")
+            setLogin(value)
+        if (name==="password")
+            setPassword(value)
     }
 
     const handleClick = () => {

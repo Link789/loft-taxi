@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import mapboxgl from "mapbox-gl"
 
-import {LAT, LNG, mapAccessToken, mapStyleAddress, mapTestMode, mapZoom} from "../../../Constants";
+import {LAT, LNG, mapAccessToken, mapStyleAddress, mapTestMode, mapZoom} from "../../../config/Const";
 import './Map.css';
 
 class MapPage extends Component {
