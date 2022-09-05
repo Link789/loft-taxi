@@ -5,9 +5,7 @@ import { theme } from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 
 import App from './App';
-
 import './styles/index.css';
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
