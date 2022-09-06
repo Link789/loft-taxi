@@ -4,6 +4,13 @@ export const LNG = 73.4006504 // Omsk
 export const LAT = 54.988111 // Omsk
 export const mapTestMode = false
 export const mapZoom = 12
+export const PAGES = {
+    PROFILE : "/profile",
+    MAP : "/map",
+    LOGIN: "/login",
+    REGISTRATION: "/registration",
+    HOME: "/home"
+}
 
 
 

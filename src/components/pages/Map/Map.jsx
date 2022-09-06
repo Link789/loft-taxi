@@ -3,6 +3,7 @@ import mapboxgl from "mapbox-gl"
 
 import {LAT, LNG, mapAccessToken, mapStyleAddress, mapTestMode, mapZoom} from "../../../config/Const";
 import './Map.css';
+import Header from "../../Header/Header";
 
 class MapPage extends Component {
     map = null
@@ -25,7 +26,10 @@ class MapPage extends Component {
     }
 
     render() {
-        return <div className="map" data-testid="map-element" ref={this.refMap}/>
+        return (<div>
+            <Header></Header>
+            <div className="map" data-testid="map-element" ref={this.refMap}/>
+        </div>)
     }
 }
 

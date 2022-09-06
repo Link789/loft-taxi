@@ -1,0 +1,20 @@
+.active {
+    color: #FDBF5A !important;
+}
+
+#header .itemMenu {
+    margin-left: 20px;
+    padding: 0px 5px 2px 5px;
+    color: white;
+}
+.navMenu {
+    display: flex;
+    flex-direction: row;
+    float: right;
+    color: white;
+    justify-content: center;
+    margin-top: 20px;
+}
+.navMenu a {
+    text-decoration: none; /* Убираем подчёркивание */
+}

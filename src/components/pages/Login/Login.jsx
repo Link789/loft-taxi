@@ -1,40 +1,46 @@
 import React, {useContext} from 'react';
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 import {Context} from "../../../Context.js";
-import Header from "../../Header/Header.jsx";
+import {PAGES} from "../../../config/Const";
 import RegistrationPage from "../Registration/Registration.jsx";
-
+import MapPage from "../Map/Map";
 import MapImg from "../../../img/map_loginPage.svg";
 import LogoImg from "../../../img/logo_loginPage.png";
 import './Login.css';
+import {LogIn} from "../../../redux/actions";
 
-export default function LoginPage(props) {
-    const [isRegistration, setIsRegistration] = React.useState(false)
+
+function LoginPage(props) {
     const [login, setLogin] = React.useState('')
     const [password, setPassword] = React.useState('')
-    const {logIn, isLoggedIn} = useContext(Context)
+    const {logIn, logOut, isLoggedIn} = useContext(Context)
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        logIn(login,  password)
+        //logIn(login, password)
+        if (login === "login" && password === "password") {
+            props.LogIn();
+        }
     }
 
     const handleChange = (event) => {
         const name = event.target.name
         const value = event.target.value
-        if (name==="userName")
-            setLogin(value)
-        if (name==="password")
-            setPassword(value)
+        switch (name) {
+            case 'userName':
+                return setLogin(value)
+            case 'password':
+                return setPassword(value)
+        }
+
     }
 
-    const handleClick = () => {
-        setIsRegistration(true)
-    }
 
     switch (true) {
-        case isRegistration: return <RegistrationPage/>
-        case isLoggedIn: return <Header page="map"/>
+        case props.isLoggedIn:
+            return <MapPage/>
         default:
             return (
                 <div id='mainContainer'>
@@ -46,7 +52,6 @@ export default function LoginPage(props) {
                         <form id='loginForm'
                               onSubmit={handleSubmit}>
                             <div className='formHeader'>Войти</div>
-
                             <div className="container">
                                 <label htmlFor="userName"><b>Имя пользователя *</b></label>
                                 <input type="text"
@@ -62,11 +67,13 @@ export default function LoginPage(props) {
                                        required
                                        onChange={handleChange}
                                 />
-                                <button id='login' type="submit">Войти</button>
+                                <Link to={isLoggedIn ? PAGES.MAP : PAGES.LOGIN}>
+                                    <button id='login' type="button" onClick={handleSubmit}>Войти</button>
+                                </Link>
                             </div>
-                            <div className="psw" onClick={handleClick}>
+                            <div className="psw">
                                 <span>
-                                    Новый пользователь?  <a href="#">Зарегистрируйтесь</a>
+                                    Новый пользователь?  <Link to={PAGES.REGISTRATION}>Зарегистрируйтесь</Link>
                                 </span>
                             </div>
                         </form>
@@ -75,3 +82,12 @@ export default function LoginPage(props) {
             )
     }
 }
+
+const mapDispatchToProps = {
+    LogIn
+}
+const mapStateToProps = state => {
+    console.log(state)
+    return {isLoggedIn:state.authContext.isLoggedIn}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

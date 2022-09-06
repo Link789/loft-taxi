@@ -22,6 +22,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/.idea
+src/.idea
+src/.idea/.name
+src/.idea/modules.xml
+src/.idea/src.iml
+src/.idea/vcs.xml
+src/.idea/workspace.xml
 package-lock.json
-

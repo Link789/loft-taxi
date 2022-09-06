@@ -1,0 +1,27 @@
+.App {
+    background-color: black;
+}
+
+#mainContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 100vh;
+}
+
+#leftContainer {
+    width: 34%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+#rightContainer {
+    width: 66%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+

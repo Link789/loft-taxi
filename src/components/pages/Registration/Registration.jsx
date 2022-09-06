@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 import LoginPage from "../Login/Login.jsx"
-
 import MapImg from "../../../img/map_loginPage.svg"
 import LogoImg from "../../../img/logo_loginPage.png"
 import '../Login/Login.css'
 import './Registration.css'
+import {PAGES} from "../../../config/Const";
+
 
 class RegistrationPage extends Component {
     constructor(props) {
@@ -84,7 +86,7 @@ class RegistrationPage extends Component {
                                     <button id='login' type="submit">Зарегистрироваться</button>
                                 </div>
                                 <div className="psw" onClick={this.handleClick}>
-                                    <span>Уже зарегистрирован?  <a href="#">Войти</a></span>
+                                    <span>Уже зарегистрирован?  <Link to={PAGES.LOGIN}>Войти</Link></span>
                                 </div>
                             </form>
                         </div>
