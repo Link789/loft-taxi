@@ -1,0 +1,8 @@
+.personalData {
+    display: flex;
+    flex-direction: row;
+}
+
+.lastName {
+    margin-left: 5px;
+}
