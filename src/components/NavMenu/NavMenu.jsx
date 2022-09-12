@@ -21,11 +21,19 @@ function NavMenu(props) {
                 className={location.pathname === PAGES.PROFILE ? 'itemMenu active' : 'itemMenu'}>
                 Профиль
             </Link>
-            <Link to={PAGES.LOGIN} className='itemMenu'>Вход</Link>
-            <Link to={PAGES.REGISTRATION} className='itemMenu'>Регистрация</Link>
-            <div onClick={props.LogOut}>
-                <Link to="/exit" className='itemMenu'>Выход</Link>
-            </div>
+            {
+                !props.isLoggedIn &&
+                <>
+                    <Link to={PAGES.LOGIN} className='itemMenu'>Вход</Link>
+                    <Link to={PAGES.REGISTRATION} className='itemMenu'>Регистрация</Link>
+                </>
+            }
+            {
+                props.isLoggedIn &&
+                <div onClick={props.LogOut}>
+                    <Link to="/exit" className='itemMenu'>Выход</Link>
+                </div>
+            }
         </div>
     )
 }
@@ -33,4 +41,7 @@ function NavMenu(props) {
 const mapDispatchToProps = {
     LogOut
 }
-export default connect(null,mapDispatchToProps)(NavMenu)
+const mapStateToProps = state => {
+    return {isLoggedIn: state.authContext.isLoggedIn}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(NavMenu)

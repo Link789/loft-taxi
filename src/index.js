@@ -1,17 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {Provider} from "react-redux";
-import {theme} from "loft-taxi-mui-theme";
-import {MuiThemeProvider} from "@material-ui/core/styles";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import {Provider} from "react-redux"
+import {applyMiddleware, compose, createStore} from "redux"
+import {theme} from "loft-taxi-mui-theme"
+import {MuiThemeProvider} from "@material-ui/core/styles"
 
-import App from './App/App';
-import './styles/index.css';
-import {rootReducers} from "./redux/rootReducers";
-import {compose, createStore} from "redux";
+import App from './App/App'
+import './styles/index.css'
+import {rootReducers} from "./redux/reducers/rootReducers/rootReducers"
+import {authenticate, registration, saveDataCard} from "./redux/middlewaries"
 
-const store = createStore(rootReducers, compose(
+const authMiddleware = applyMiddleware(authenticate)
+const regMiddleware = applyMiddleware(registration)
+const saveDataCardMiddleware = applyMiddleware(saveDataCard)
+const store = createStore(rootReducers, compose(authMiddleware, regMiddleware, saveDataCardMiddleware,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-));
+))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,7 +24,7 @@ root.render(
             <App/>
         </MuiThemeProvider>
     </Provider>
-);
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

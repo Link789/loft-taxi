@@ -1,12 +1,17 @@
 .App {
     background-color: black;
+    height: 100vh;
 }
-
+button{
+    cursor: pointer;
+}
+#mainContainer_withoutHeader{
+    display: flex;
+    height: 100vh;
+}
 #mainContainer {
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    height: 100vh;
+    height: 92vh;
 }
 
 #leftContainer {
@@ -23,5 +28,6 @@
     justify-content: center;
     background-size: cover;
 }
+
 
 

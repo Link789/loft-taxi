@@ -1,10 +1,9 @@
-import {render,screen} from '@testing-library/react'
-import Header from './Header.jsx'
+import {render} from '@testing-library/react'
+import NavMenu from "./NavMenu"
 
-describe('Header component', () => {
-    it('render Header correctly', () => {
-        render(<Header/>)
-        const logo = screen.getByAltText('Логотип');
-        expect(logo).toBeInTheDocument();
+describe('NavMenu component', () => {
+    it('render NavMenu correctly', () => {
+        const navmenuContainer = render(<NavMenu/>)
+        expect(navmenuContainer.querySelector(".navMenu")).toBeInTheDocument()
     })
 })

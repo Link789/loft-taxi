@@ -11,6 +11,10 @@ export const PAGES = {
     REGISTRATION: "/registration",
     HOME: "/home"
 }
+export const serverUrl = 'https://loft-taxi.glitch.me/'
+export const serverActionAuth = 'https://loft-taxi.glitch.me/auth'
+export const serverActionRegister = 'https://loft-taxi.glitch.me/register'
+export const serverActionSaveDataCard = 'https://loft-taxi.glitch.me/card'
 
 
 
