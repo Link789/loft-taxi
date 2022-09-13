@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import {Provider} from "react-redux"
 import {applyMiddleware, compose, createStore} from "redux"
 import {theme} from "loft-taxi-mui-theme"
-import {MuiThemeProvider} from "@material-ui/core/styles"
+import {ThemeProvider} from "@mui/material";
 
 import App from './App/App'
 import './styles/index.css'
@@ -20,9 +20,9 @@ const store = createStore(rootReducers, compose(authMiddleware, regMiddleware, s
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
             <App/>
-        </MuiThemeProvider>
+        </ThemeProvider>
     </Provider>
 )
 
