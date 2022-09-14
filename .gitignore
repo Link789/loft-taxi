@@ -29,3 +29,6 @@ src/.idea/src.iml
 src/.idea/vcs.xml
 src/.idea/workspace.xml
 package-lock.json
+.idea/vcs.xml
+.idea/.name
+.idea/modules.xml
