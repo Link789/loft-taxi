@@ -1,25 +1,40 @@
-import {SAVE_DATA_CARD} from "../../types";
+import {saveDataCard} from "../../actions";
+import {handleActions} from "redux-actions";
+import {combineReducers} from "redux";
 
-const dataCard = localStorage.getItem('dataCard')
-const { cardNumber,
-        cardOwner,
-        cardMonthYear,
-        cardCVC} = dataCard && dataCard.length > 0 ? JSON.parse(dataCard) : {   cardNumber: '',
-                                                                                cardOwner: '',
-                                                                                cardMonthYear: '',
-                                                                                cardCVC: ''}
+const lsDataCard = localStorage.getItem('dataCard')
+const dataCard = lsDataCard && lsDataCard.length > 0 ? JSON.parse(lsDataCard) : {
+    cardNumber: '',
+    cardOwner: '',
+    cardMonthYear: '',
+    cardCVC: ''
+}
 const initialState = {
+    cardNumber: dataCard.cardNumber,
+    cardOwner: dataCard.cardOwner,
+    cardMonthYear: dataCard.cardMonthYear,
+    cardCVC: dataCard.cardCVC,
+}
+
+const cardNumber = handleActions({
+    [saveDataCard]: (_state, {payload}) => payload.cardNumber
+}, initialState.cardNumber)
+
+const cardOwner = handleActions({
+    [saveDataCard]: (_state, {payload}) => payload.cardOwner
+}, initialState.cardOwner)
+
+const cardMonthYear = handleActions({
+    [saveDataCard]: (_state, {payload}) => payload.cardMonthYear
+}, initialState.cardMonthYear)
+
+const cardCVC = handleActions({
+    [saveDataCard]: (_state, {payload}) => payload.cardCVC
+}, initialState.cardCVC)
+
+export const profileReducer = combineReducers({
     cardNumber,
     cardOwner,
     cardMonthYear,
     cardCVC
-}
-
-export const ProfileReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SAVE_DATA_CARD:
-            return {...action.payload}
-        default:
-            return state
-    }
-}
+})

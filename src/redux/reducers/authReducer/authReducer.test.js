@@ -1,31 +1,35 @@
-import {AuthReducer} from './authReducer';
-import {LogIn, LogOut, SendAuthData} from "../../actions";
+import {authReducer} from "./authReducer"
+import {logIn, logOut, sendAuthData} from "../../actions"
 
-test('authReducer LogIn', () => {
-    let state;
-    state = AuthReducer(
-        {isLoggedIn: false, email: 'test', password: 'test'},
-        LogIn(true)
-    );
-    expect(state).toEqual({isLoggedIn: true, email: 'test', password: 'test'});
-});
+test("authReducer LogIn", () => {
+    let state
+    state = authReducer(
+        {isLoggedIn: false, email: "test", password: "test", token: "", error: ""},
+        logIn({isLoggedIn: true, token: "frhgui675e", error: "test error"})
+    )
+    expect(state).toEqual({isLoggedIn: true, email: "test", password: "test", token: "frhgui675e", error: "test error"})
+})
 
-test('authReducer LogOut', () => {
-    let state;
-    state = AuthReducer(
-        {isLoggedIn: true, email: 'test', password: 'test'},
-        LogOut()
-    );
+test("authReducer LogOut", () => {
+    let state
+    state = authReducer(
+        {isLoggedIn: true, email: "test", password: "test", token: "frhgui675e", error: "test error"},
+        logOut()
+    )
+    expect(state).toEqual({isLoggedIn: false, email: "", password: "", token: "", error: ""})
+})
 
-    expect(state).toEqual({isLoggedIn: false, email: '', password: ''});
-});
-
-test('authReducer SendAuthData', () => {
-    let state;
-    state = AuthReducer(
-        {isLoggedIn: false, email: '', password: ''},
-        SendAuthData({email:'test',password:'test'})
-    );
-
-    expect(state).toEqual({isLoggedIn: false, email: 'test', password: 'test'});
-});
+test("authReducer SendAuthData", () => {
+    let state
+    state = authReducer(
+        {isLoggedIn: false, email: "", password: "", token: "frhgui675e", error: "test error"},
+        sendAuthData({email: "test", password: "test"})
+    )
+    expect(state).toEqual({
+        isLoggedIn: false,
+        email: "test",
+        password: "test",
+        token: "frhgui675e",
+        error: "test error"
+    })
+})

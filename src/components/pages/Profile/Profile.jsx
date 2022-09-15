@@ -1,53 +1,58 @@
-import React from 'react';
-import MCIcon from "loft-taxi-mui-theme/src/MCIcon/mc_symbol.svg";
+import React, {useCallback} from 'react'
+import {useDispatch, useSelector} from "react-redux"
+import MCIcon from "loft-taxi-mui-theme/src/MCIcon/mc_symbol.svg"
 
-import Header from "../../Header/Header";
-import MapImg from "../../../img/map_loginPage.svg";
-import ChipImg from "../../../img/Vectorchip.svg";
-import LogoCardImg from "../../../img/logoCard.svg";
+import Header from "../../Header/Header"
+import MapImg from "../../../img/map_loginPage.svg"
+import ChipImg from "../../../img/Vectorchip.svg"
+import LogoCardImg from "../../../img/logoCard.svg"
 import './Profile.css';
-import {SaveDataCard} from "../../../redux/actions";
-import {connect} from "react-redux";
+import {saveDataCard} from "../../../redux/actions"
 
-function ProfilePage(props) {
+
+export default function ProfilePage() {
+    const card = useSelector(state => state.profileContext)
+    const dispatch = useDispatch()
     const [dataCard, setDataCard] = React.useState({
-        cardNumber: props.card.cardNumber,
-        cardOwner: props.card.cardOwner,
-        cardMonthYear: props.card.cardMonthYear,
-        cardCVC: props.card.cardCVC
+        cardNumber: card.cardNumber,
+        cardOwner: card.cardOwner,
+        cardMonthYear: card.cardMonthYear,
+        cardCVC: card.cardCVC
     })
 
-    const handleSubmit = (event) => {
+    const handleSubmit = useCallback((event) => {
         event.preventDefault()
-        props.SaveDataCard(dataCard);
-    }
+        dispatch(saveDataCard(dataCard))
+    }, [dataCard])
 
-    const handleChange = (event) => {
-        let onlyDigitals;
-        let formatStr;
+    const handleChange = useCallback((event) => {
+        let onlyDigital
+        let formatStr
         const name = event.target.name
         const value = event.target.value
         switch (name) {
             case 'cardNumber':
-                onlyDigitals = value.replace(/[^0-9]/g, "")
-                onlyDigitals = onlyDigitals.length >= 16 ? onlyDigitals.slice(0, 16) : onlyDigitals
-                formatStr = onlyDigitals.replace(/\B(?=(\d{4})+(?!\d))/g, " ")
-                return setDataCard({...dataCard, cardNumber: formatStr})
+                onlyDigital = value.replace(/[^0-9]/g, "")
+                onlyDigital = onlyDigital.length >= 16 ? onlyDigital.slice(0, 16) : onlyDigital
+                formatStr = onlyDigital.replace(/\B(?=(\d{4})+(?!\d))/g, " ")
+                setDataCard({...dataCard, cardNumber: formatStr})
+                break
             case 'cardOwner':
-                return setDataCard({...dataCard, cardOwner: value})
+                setDataCard({...dataCard, cardOwner: value})
+                break
             case 'cardMonthYear':
-                onlyDigitals = value.replace(/[^0-9]/g, "")
-                onlyDigitals = onlyDigitals.length >= 4 ? onlyDigitals.slice(0, 4) : onlyDigitals
-                formatStr = onlyDigitals.replace(/\B(?=(\d{2})+(?!\d))/g, "/")
-                return setDataCard({...dataCard, cardMonthYear: formatStr})
+                onlyDigital = value.replace(/[^0-9]/g, "")
+                onlyDigital = onlyDigital.length >= 4 ? onlyDigital.slice(0, 4) : onlyDigital
+                formatStr = onlyDigital.replace(/\B(?=(\d{2})+(?!\d))/g, "/")
+                setDataCard({...dataCard, cardMonthYear: formatStr})
+                break
             case 'cardCVC':
-                onlyDigitals = value.replace(/[^0-9]/g, "")
-                onlyDigitals = onlyDigitals.length >= 3 ? onlyDigitals.slice(0, 3) : onlyDigitals
-                return setDataCard({...dataCard, cardCVC: onlyDigitals})
-            default:
-                return
+                onlyDigital = value.replace(/[^0-9]/g, "")
+                onlyDigital = onlyDigital.length >= 3 ? onlyDigital.slice(0, 3) : onlyDigital
+                setDataCard({...dataCard, cardCVC: onlyDigital})
+                break
         }
-    }
+    }, [dataCard])
 
     return (
         <div>
@@ -102,10 +107,10 @@ function ProfilePage(props) {
                                 <div className="visualCardContainer">
                                     <div className="space-between">
                                         <div><img className="icon" src={LogoCardImg} alt=""/></div>
-                                        <div><b>{props.card.cardMonthYear}</b></div>
+                                        <div><b>{card.cardMonthYear}</b></div>
                                     </div>
                                     <div className="center font-size-x-large">
-                                        <b>{props.card.cardNumber}</b>
+                                        <b>{card.cardNumber}</b>
                                     </div>
                                     <div className="space-between">
                                         <div>
@@ -129,10 +134,6 @@ function ProfilePage(props) {
         </div>
     )
 }
-const mapDispatchToProps = {
-    SaveDataCard
-}
-const mapStateToProps = state => {
-    return {card: state.profileContext}
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)
+
+
+
