@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import NavMenu from "../NavMenu/NavMenu";
-import LogoImg from "../../img/logo.svg";
-import './Header.css';
+import NavMenu from "../NavMenu/NavMenu"
+import LogoImg from "../../img/logo.svg"
+import './Header.css'
 
 export default function Header(){
   return(

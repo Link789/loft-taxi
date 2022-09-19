@@ -6,9 +6,9 @@ import {ThemeProvider} from "@mui/material"
 
 import App from './App/App'
 import './styles/index.css'
-import createAppStore from "./redux/store"
+import {store} from "./redux/store"
 
-const store = createAppStore()
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <Provider store={store}>

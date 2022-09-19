@@ -1,6 +1,5 @@
-import {logIn, logOut, sendAuthData, sendRegData} from "../../actions";
-import {combineReducers} from "redux";
-import {handleActions} from "redux-actions";
+import {logIn, logOut, sendAuthData, sendRegData} from "../../actions"
+import {createReducer} from "@reduxjs/toolkit"
 
 const authData = localStorage.getItem('authData')
 
@@ -11,37 +10,27 @@ const initialState = {
     token: authData && authData.length > 0 ? JSON.parse(authData).token : "",
     error: ""
 }
-const email = handleActions({
-    [sendAuthData]: (_state, {payload}) => payload.email,
-    [sendRegData]: (_state, {payload}) => payload.email,
-    [logOut]: () => "",
-}, initialState.email)
 
-const password = handleActions({
-    [sendAuthData]: (_state, {payload}) => payload.password,
-    [sendRegData]: (_state, {payload}) => payload.password,
-    [logOut]: () => "",
-}, initialState.password)
-
-const isLoggedIn = handleActions({
-    [logIn]: (_state, {payload}) => payload.isLoggedIn,
-    [logOut]: () => false,
-}, initialState.isLoggedIn)
-
-const token = handleActions({
-    [logIn]: (_state, {payload}) => payload.token,
-    [logOut]: () => "",
-}, initialState.token)
-
-const error = handleActions({
-    [logIn]: (_state, {payload}) => payload.error,
-    [logOut]: () => "",
-}, initialState.error)
-
-export const authReducer = combineReducers({
-    email,
-    password,
-    isLoggedIn,
-    token,
-    error
+export const authReducer = createReducer(initialState, {
+    [sendAuthData.type]: (state, {payload}) => {
+        state.email = payload.email
+        state.password = payload.password
+    },
+    [sendRegData.type]: (state, {payload}) => {
+        state.email = payload.email
+        state.password = payload.password
+    },
+    [logOut.type]: (state) => {
+        state.email = ""
+        state.password = ""
+        state.isLoggedIn = false
+        state.token = ""
+        state.error = ""
+    },
+    [logIn.type]: (state, {payload}) => {
+        state.isLoggedIn = payload.isLoggedIn
+        state.token = payload.token
+        state.error = payload.error
+    },
 })
+

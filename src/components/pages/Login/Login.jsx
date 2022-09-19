@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import {Link} from "react-router-dom"
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 
 import {sendAuthData} from "../../../redux/actions"
 import {PAGES} from "../../../config/consts"
@@ -21,8 +21,8 @@ function LoginPage() {
     const handleChange = useCallback((event) => {
         const name = event.target.name
         const value = event.target.value
-        name == 'userName' && setEmail(value)
-        name == 'password' && setPassword(value)
+        name === 'userName' && setEmail(value)
+        name === 'password' && setPassword(value)
     }, [email, password])
 
 

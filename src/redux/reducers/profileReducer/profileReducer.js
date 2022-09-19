@@ -1,6 +1,5 @@
-import {saveDataCard} from "../../actions";
-import {handleActions} from "redux-actions";
-import {combineReducers} from "redux";
+import {saveDataCard} from "../../actions"
+import {createReducer} from "@reduxjs/toolkit"
 
 const lsDataCard = localStorage.getItem('dataCard')
 const dataCard = lsDataCard && lsDataCard.length > 0 ? JSON.parse(lsDataCard) : {
@@ -16,25 +15,11 @@ const initialState = {
     cardCVC: dataCard.cardCVC,
 }
 
-const cardNumber = handleActions({
-    [saveDataCard]: (_state, {payload}) => payload.cardNumber
-}, initialState.cardNumber)
-
-const cardOwner = handleActions({
-    [saveDataCard]: (_state, {payload}) => payload.cardOwner
-}, initialState.cardOwner)
-
-const cardMonthYear = handleActions({
-    [saveDataCard]: (_state, {payload}) => payload.cardMonthYear
-}, initialState.cardMonthYear)
-
-const cardCVC = handleActions({
-    [saveDataCard]: (_state, {payload}) => payload.cardCVC
-}, initialState.cardCVC)
-
-export const profileReducer = combineReducers({
-    cardNumber,
-    cardOwner,
-    cardMonthYear,
-    cardCVC
+export const profileReducer = createReducer(initialState, {
+    [saveDataCard.type]: (state, {payload}) => {
+        state.cardNumber = payload.cardNumber
+        state.cardOwner = payload.cardOwner
+        state.cardMonthYear = payload.cardMonthYear
+        state.cardCVC = payload.cardCVC
+    }
 })

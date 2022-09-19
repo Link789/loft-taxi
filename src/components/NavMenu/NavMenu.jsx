@@ -5,9 +5,10 @@ import {useDispatch, useSelector} from "react-redux"
 import {PAGES} from "../../config/consts"
 import './NavMenu.css'
 import {logOut} from "../../redux/actions"
+import {selectIsLoggedIn} from "../../redux/selectors";
 
 export default function NavMenu() {
-    const isLoggedIn = useSelector(state => state.authContext.isLoggedIn)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
     const dispatch = useDispatch()
     const {pathname} = useLocation()
 

@@ -6,11 +6,13 @@ import ProfilePage from "../components/pages/Profile/Profile"
 import MapPage from "../components/pages/Map/Map"
 import LoginPage from "../components/pages/Login/Login"
 import RegistrationPage from "../components/pages/Registration/Registration"
+import {selectIsLoggedIn} from "../redux/selectors"
 import {PAGES} from "../config/consts"
 import './App.css'
 
+
 export default function App() {
-    const isLoggedIn = useSelector(state => state.authContext.isLoggedIn)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
     return (
         <div className="App" data-testid="app-element">
             <BrowserRouter>
