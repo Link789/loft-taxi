@@ -4,7 +4,6 @@ import {useDispatch} from 'react-redux'
 
 import {sendAuthData} from "../../../redux/actions"
 import {PAGES} from "../../../config/consts"
-import MapImg from "../../../img/map_loginPage.svg"
 import LogoImg from "../../../img/logo_loginPage.png"
 import './Login.css'
 
@@ -31,8 +30,7 @@ function LoginPage() {
             <div id='leftContainer'>
                 <img src={LogoImg} alt="Логотип"/>
             </div>
-            <div id='rightContainer'
-                 style={{backgroundImage: `url(${MapImg})`}}>
+            <div id='rightContainer' className="login">
                 <form id='loginForm' onSubmit={handleSubmit}>
                     <div className='formHeader'>Войти</div>
                     <div className="container">

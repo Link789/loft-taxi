@@ -1,3 +1,7 @@
+#mainContainer.profile{
+    background-image: url(/src/img/map_loginPage.svg);
+}
+
 #profileForm {
     margin-top: 120px;
     margin-left: 65%;
