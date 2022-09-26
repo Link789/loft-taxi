@@ -1,47 +1,41 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {Link, useLocation} from 'react-router-dom'
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux"
 
-import {PAGES} from "../../config/Const"
+import {PAGES} from "../../config/consts"
 import './NavMenu.css'
-import {LogOut} from "../../redux/actions";
+import {logOut} from "../../redux/actions"
+import {selectIsLoggedIn} from "../../redux/selectors";
 
+export default function NavMenu() {
+    const isLoggedIn = useSelector(selectIsLoggedIn)
+    const dispatch = useDispatch()
+    const {pathname} = useLocation()
 
-function NavMenu(props) {
-    const location = useLocation()
+    const onLogOut = useCallback(() => dispatch(logOut()), [dispatch])
+    const getClass = useCallback((page) => pathname === page ? 'itemMenu active' : 'itemMenu', [pathname])
+    const privateLinks = useCallback((isLoggedIn) => {
+        return isLoggedIn &&
+            <div onClick={onLogOut}>
+                <Link to="/exit" className='itemMenu'>Выход</Link>
+            </div>
+    }, [isLoggedIn])
+
     return (
         <div className='navMenu'>
             <Link
                 to={PAGES.MAP}
-                className={location.pathname === PAGES.MAP ? 'itemMenu active' : 'itemMenu'}>
+                className={getClass(PAGES.MAP)}>
                 Карта
             </Link>
             <Link
                 to={PAGES.PROFILE}
-                className={location.pathname === PAGES.PROFILE ? 'itemMenu active' : 'itemMenu'}>
+                className={getClass(PAGES.PROFILE)}>
                 Профиль
             </Link>
             {
-                !props.isLoggedIn &&
-                <>
-                    <Link to={PAGES.LOGIN} className='itemMenu'>Вход</Link>
-                    <Link to={PAGES.REGISTRATION} className='itemMenu'>Регистрация</Link>
-                </>
-            }
-            {
-                props.isLoggedIn &&
-                <div onClick={props.LogOut}>
-                    <Link to="/exit" className='itemMenu'>Выход</Link>
-                </div>
+                privateLinks(isLoggedIn)
             }
         </div>
     )
 }
-
-const mapDispatchToProps = {
-    LogOut
-}
-const mapStateToProps = state => {
-    return {isLoggedIn: state.authContext.isLoggedIn}
-}
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenu)

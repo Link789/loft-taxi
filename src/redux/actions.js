@@ -1,37 +1,7 @@
-import {LOG_IN, LOG_OUT, SAVE_DATA_CARD, SEND_AUTH_DATA, SEND_REG_DATA} from "./types"
+import {createAction} from "@reduxjs/toolkit"
 
-export const LogIn = (payload) => {
-    return {
-        type: LOG_IN,
-        payload: {isLoggedIn: payload}
-    }
-}
-
-export const LogOut = () => {
-    return {
-        type: LOG_OUT,
-        payload: false
-    }
-}
-
-export const SendAuthData = (authData) => {
-    return {
-        type: SEND_AUTH_DATA,
-        payload: authData
-    }
-}
-
-export const SendRegData = (regData) => {
-    return {
-        type: SEND_REG_DATA,
-        payload: regData
-    }
-}
-
-export const SaveDataCard = (dataCard) => {
-    return {
-        type: SAVE_DATA_CARD,
-        payload: dataCard
-    }
-}
-
+export const logIn = createAction("LOG_IN")
+export const logOut = createAction("LOG_OUT")
+export const sendAuthData = createAction("SEND_AUTH_DATA")
+export const sendRegData = createAction("SEND_REG_DATA")
+export const saveDataCard = createAction("SAVE_DATA_CARD")

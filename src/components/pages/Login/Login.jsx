@@ -1,49 +1,41 @@
-import React from 'react'
+import React, {useCallback, useState} from 'react'
 import {Link} from "react-router-dom"
-import {connect} from "react-redux"
+import {useDispatch} from 'react-redux'
 
-import {SendAuthData} from "../../../redux/actions"
-import {PAGES, serverActionAuth, serverActionSaveDataCard} from "../../../config/Const"
-import MapImg from "../../../img/map_loginPage.svg"
+import {sendAuthData} from "../../../redux/actions"
+import {PAGES} from "../../../config/consts"
 import LogoImg from "../../../img/logo_loginPage.png"
 import './Login.css'
 
+function LoginPage() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
 
-function LoginPage(props) {
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-
-    const handleSubmit = (event) => {
+    const handleSubmit = useCallback((event) => {
         event.preventDefault()
-        props.SendAuthData({email, password})
-    }
+        dispatch(sendAuthData({email, password}))
+    },[email,password])
 
-    const handleChange = (event) => {
+    const handleChange = useCallback((event) => {
         const name = event.target.name
         const value = event.target.value
-        switch (name) {
-            case 'userName':
-                return setEmail(value)
-            case 'password':
-                return setPassword(value)
-            default:
-                return
-        }
-    }
+        name === 'userName' && setEmail(value)
+        name === 'password' && setPassword(value)
+    }, [email, password])
+
 
     return (
         <div id='mainContainer_withoutHeader'>
             <div id='leftContainer'>
                 <img src={LogoImg} alt="Логотип"/>
             </div>
-            <div id='rightContainer'
-                 style={{backgroundImage: `url(${MapImg})`}}>
-                <form id='loginForm' >
+            <div id='rightContainer' className="login">
+                <form id='loginForm' onSubmit={handleSubmit}>
                     <div className='formHeader'>Войти</div>
                     <div className="container">
                         <label htmlFor="userName"><b>Имя пользователя *</b></label>
                         <input type="text"
-                               //placeholder="Имя пользователя *"
                                name="userName"
                                required
                                onChange={handleChange}
@@ -51,13 +43,12 @@ function LoginPage(props) {
                         />
                         <label htmlFor="password"><b>Пароль *</b></label>
                         <input type="password"
-                               //placeholder="Пароль *"
                                name="password"
                                required
                                onChange={handleChange}
                                value={password}
                         />
-                        <button id='login' type="submit" onClick={handleSubmit}>Войти</button>
+                        <button id='login' type="submit">Войти</button>
                     </div>
                     <div className="psw">
                         <span>
@@ -70,10 +61,4 @@ function LoginPage(props) {
     )
 }
 
-const mapDispatchToProps = {
-    SendAuthData
-}
-const mapStateToProps = state => {
-    return {isLoggedIn: state.authContext.isLoggedIn}
-}
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export default LoginPage

@@ -1,25 +1,25 @@
-import {SAVE_DATA_CARD} from "../../types";
+import {saveDataCard} from "../../actions"
+import {createReducer} from "@reduxjs/toolkit"
 
-const dataCard = localStorage.getItem('dataCard')
-const { cardNumber,
-        cardOwner,
-        cardMonthYear,
-        cardCVC} = dataCard && dataCard.length > 0 ? JSON.parse(dataCard) : {   cardNumber: '',
-                                                                                cardOwner: '',
-                                                                                cardMonthYear: '',
-                                                                                cardCVC: ''}
+const lsDataCard = localStorage.getItem('dataCard')
+const dataCard = lsDataCard && lsDataCard.length > 0 ? JSON.parse(lsDataCard) : {
+    cardNumber: '',
+    cardOwner: '',
+    cardMonthYear: '',
+    cardCVC: ''
+}
 const initialState = {
-    cardNumber,
-    cardOwner,
-    cardMonthYear,
-    cardCVC
+    cardNumber: dataCard.cardNumber,
+    cardOwner: dataCard.cardOwner,
+    cardMonthYear: dataCard.cardMonthYear,
+    cardCVC: dataCard.cardCVC,
 }
 
-export const ProfileReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SAVE_DATA_CARD:
-            return {...action.payload}
-        default:
-            return state
+export const profileReducer = createReducer(initialState, {
+    [saveDataCard.type]: (state, {payload}) => {
+        state.cardNumber = payload.cardNumber
+        state.cardOwner = payload.cardOwner
+        state.cardMonthYear = payload.cardMonthYear
+        state.cardCVC = payload.cardCVC
     }
-}
+})

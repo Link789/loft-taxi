@@ -1,4 +1,3 @@
-
 export const fetchPOST = (serverAction, body, callback) => {
     const requestOptions = {
         method: 'POST',
@@ -9,5 +8,3 @@ export const fetchPOST = (serverAction, body, callback) => {
         .then(response => response.json())
         .then(data => callback(data))
 }
-
-//fetchGET

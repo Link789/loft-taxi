@@ -1,28 +1,36 @@
-import {LOG_IN, LOG_OUT, SEND_AUTH_DATA} from "../../types";
+import {logIn, logOut, sendAuthData, sendRegData} from "../../actions"
+import {createReducer} from "@reduxjs/toolkit"
 
 const authData = localStorage.getItem('authData')
-const {email, password} = authData && authData.length > 0 ? JSON.parse(authData) : {email: '', password: ''}
-const isLoggedIn = localStorage.hasOwnProperty('isLoggedIn') ? localStorage.getItem('isLoggedIn')=='true' : false
 
 const initialState = {
-    email,
-    password,
-    isLoggedIn
+    email: authData && authData.length > 0 ? JSON.parse(authData).email : "",
+    password: authData && authData.length > 0 ? JSON.parse(authData).password : "",
+    isLoggedIn: authData && authData.length > 0 ? JSON.parse(authData).isLoggedIn : false,
+    token: authData && authData.length > 0 ? JSON.parse(authData).token : "",
+    error: ""
 }
 
-export const AuthReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SEND_AUTH_DATA:
-            localStorage.setItem('authData', JSON.stringify(action.payload))
-            return {...state, ...action.payload}
-        case LOG_IN:
-            localStorage.setItem('isLoggedIn', action.payload.isLoggedIn)
-            return {...state, ...action.payload}
-        case LOG_OUT:
-            localStorage.setItem('isLoggedIn', action.payload)
-            return {isLoggedIn: action.payload, email: "", password: ""}
-        default:
-            return state
-    }
+export const authReducer = createReducer(initialState, {
+    [sendAuthData.type]: (state, {payload}) => {
+        state.email = payload.email
+        state.password = payload.password
+    },
+    [sendRegData.type]: (state, {payload}) => {
+        state.email = payload.email
+        state.password = payload.password
+    },
+    [logOut.type]: (state) => {
+        state.email = ""
+        state.password = ""
+        state.isLoggedIn = false
+        state.token = ""
+        state.error = ""
+    },
+    [logIn.type]: (state, {payload}) => {
+        state.isLoggedIn = payload.isLoggedIn
+        state.token = payload.token
+        state.error = payload.error
+    },
+})
 
-}
