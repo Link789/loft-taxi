@@ -1,0 +1,33 @@
+.App {
+    background-color: black;
+    height: 100vh;
+}
+button{
+    cursor: pointer;
+}
+#mainContainer_withoutHeader{
+    display: flex;
+    height: 100vh;
+}
+#mainContainer {
+    display: flex;
+    height: 92vh;
+}
+
+#leftContainer {
+    width: 34%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+#rightContainer {
+    width: 66%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+
+

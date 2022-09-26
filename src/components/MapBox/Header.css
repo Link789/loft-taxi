@@ -1,0 +1,16 @@
+.backgroundColorPage {
+    background-color: white;
+}
+
+#header {
+    width: 95%;
+    height: 7vh;
+    padding: 4px 24px;
+}
+
+
+#header .itemMenu:hover {
+    cursor: pointer;
+    background-color: #FDBF5A;
+    color: black !important;
+}

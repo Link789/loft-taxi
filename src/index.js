@@ -1,18 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import {Provider} from "react-redux"
+import {theme} from "loft-taxi-mui-theme"
+import {ThemeProvider} from "@mui/material"
 
-import { theme } from "loft-taxi-mui-theme";
-import { MuiThemeProvider } from "@material-ui/core/styles";
+import App from './App/App'
+import './styles/index.css'
+import {createAppStore} from "./redux/store"
 
-import App from './App';
-import './styles/index.css';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = createAppStore()
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-    <MuiThemeProvider theme={theme}>
-        <App />
-   </MuiThemeProvider>
-);
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
+            <App/>
+        </ThemeProvider>
+    </Provider>
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
